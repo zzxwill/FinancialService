@@ -1,0 +1,104 @@
+title@charset "utf-8";
+.css {
+}
+.top {
+	background-image: url(../images/top.jpg);
+}
+.mbg {
+	background-image: url(../images/m_bg.jpg);
+	background-repeat: no-repeat;
+}
+
+.top2 {
+	background-image: url(../images/top01.jpg);
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	color: #900;
+	text-align: center;
+	padding: 0px;
+}
+.bg {
+	background-image: url(../images/bg.jpg);
+	background-repeat: repeat-x;
+}
+.news {
+	height: 33px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCC;
+	border-bottom-width: 1px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #999;
+}
+.news2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 28px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCC;
+	color: #666;
+	border-top-width: thin;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-left-width: thin;
+}
+
+.bottom {
+	background-image: url(../images/bottom_bg.jpg);
+}
+.end {
+	background-image: url(../images/end.jpg);
+	height: 167px;
+}
+.endtxt  {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 14px;
+	color: #CCC;
+}
+.copyright {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 12px;
+	color: #999;
+}
+.search {
+	border: thin solid #CCC;
+}
+.search_txt {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	color: #999;
+	line-height: 20px;
+	vertical-align: 18%;
+	font-weight: normal;
+}
+.rongzitxt {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #960;
+	line-height: 31px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #960;
+}
+.title {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #666;
+	line-height: 24px;
+}
+.txt {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #666;
+	font-style: normal;
+	font-weight: normal;
+}
+.txt2 {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: bolder;
+	font-variant: small-caps;
+	color: #960;
+}
