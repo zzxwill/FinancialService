@@ -87,6 +87,53 @@ public class LawyerDao {
 	}
 	
 	
+	
+	/**
+	 * @function: Update lawyer info.
+	 * @author:   Will Zhou
+	 * @date:     Aug 30, 2014 10:32:46 PM 
+	 */
+	public void submit_update_lawyer_info(HashMap hm) throws UnsupportedEncodingException {
+		Connection conn = Connections.getConnection();
+	
+  		int id = (Integer) hm.get("id");
+  		String  name= (String) hm.get("name");
+  		String  title= (String) hm.get("title");
+  		String  description= (String) hm.get("description");
+  		
+		
+		  Date currentTime = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = dateFormat.format(currentTime); 
+		
+		String sql;
+		String  figure_path = new String();
+			
+		if(hm.containsKey("figure_path")){
+  			figure_path= (String) hm.get("figure_path");
+  			 sql = "update lawyer set name = '" + name + "', title = '"+ title + "', description = '"+ description
+  					+ "', figure_path= '"+ figure_path + "', date = '"+ date  +"' where id = " + id;
+  			
+  		}else{
+  			sql = "update lawyer set name = '" + name + "', title = '"+ title + "', description = '"+ description
+					+  "', date = '"+ date  +"' where id = " + id;
+
+		
+		}
+		try {
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+			stmt.close();
+			
+			conn.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 	
 	

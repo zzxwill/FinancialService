@@ -54,20 +54,21 @@ public class LawyerModule {
 		article.setUserId(userId);
 		dao.insert(article);
 		return new ResponseCode(0, "保存成功");
-	}
+	}*/
 
-	@At("/article_edit")
+	@At("/lawyer_edit")
 	@Ok("json:{quoteName:true}")
-	public ResponseCode articleEdit(@Param("..") Article article) {
-		if (Strings.isEmpty(article.getText())) {
+	public ResponseCode articleEdit(@Param("..") Lawyer lawyer) {
+		if (Strings.isEmpty(lawyer.getName())) {
 			return new ResponseCode(0, "标题不能为空");
 		}
 		Date now = new Date();
-		article.setUpdateTime(now);
-		dao.updateIgnoreNull(article);
+		lawyer.setDate(now.toString());
+		dao.updateIgnoreNull(lawyer);
 		return new ResponseCode(0, "保存成功");
 	}
 
+	/*
 	@At("/article_delete")
 	@Ok("json:{quoteName:true}")
 	public ResponseCode articleDelete(@Param("id") Long id) {

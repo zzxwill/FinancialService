@@ -11,7 +11,7 @@
 <%@include file="../common/taglibs.jsp"%>
 <%-- <%@ include file="../check/checkAdminEx.jsp"%> --%>
 
-<%@ include file="../include/package.jsp"%> 
+<%-- <%@ include file="../include/package.jsp"%>  --%>
 
 <%
 
@@ -39,14 +39,18 @@ pageContext.setAttribute("lawyer", lawyer);
     src="${ctx}/resource/ueditor/ueditor.all.min.js"></script>
 <script type="text/javascript" charset="utf-8"
     src="${ctx}/resource/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="${ctx}/js/ask.js"></script>
 <title>修改律师说法</title>
 </head>
 <body>
-<form id="ff" action="${ctx}/module/article/article_edit" method="post">
-<input name="id" value="${lawyer.id}" type="hidden"/>
+	<form id="edit_lawyer_form" action="submit_edit_lawyer.jsp" method="post" encType="multipart/form-data">
+
 
 
 	 <fieldset data-role="fieldcontain">
+	 
+	 <input name="id" value="${lawyer.id}" type="hidden"/>
+	
 		<div>
 			<label for="name">姓名</label> <input name="name" type="text" value= "${lawyer.name}"/>
 		</div>
@@ -58,20 +62,20 @@ pageContext.setAttribute("lawyer", lawyer);
 			<textarea name="description" ><%=lawyer.getDescription()%></textarea>
 		</div>
 		<div>
-			<table width="100%">
-		<tr>
+			
+
 		<label for="description">头像</label>
 			<!-- <td width="50%" align="center"><div style="width:95%" id="ASKSelect" onclick="UploadPhoto();">头像</div></td> -->
-			<td><input name="picfile" type="file" value="${lawyer.figure_path}"/>
-            <img alt="没有图片" src="<%=P_IMAGES %>/${lawyer.figure_path}" height="50px" width="50px">
-            </td>
+			<input name="picfile" type="hidden" value="${lawyer.figure_path}" readonly="readonly"/>
+            <img alt="没有图片" src="../upload/${lawyer.figure_path}" height="50px" width="50px"> 
+            <div style="width:95%" id="ASKSelect" onclick="UploadPhoto();">重新上传</div>
+           
 		<!-- 	<td width="50%" align="center"><div  style="width:95%" id="ASKSelect" onclick="SelectKeShi();">选择科室</div></td> -->
-		</tr>
-	</table>
+
 		</div>
 		
 		<div id="UploadPhoto" class="UploadPhoto" >
-		<div><big>上传照片</big></div><br>
+		<!-- <div><big>上传照片</big></div><br> -->
 		<table width="100%" cellpadding="0" cellspacing="0px"  >
 			<tr>
 			<td></td>
@@ -115,7 +119,7 @@ pageContext.setAttribute("lawyer", lawyer);
 	                $.messager.alert('提示', obj.message);
 	            }
 	        }); */
-	        var add_lawyer_form = document.getElementById("add_lawyer_form");
+	        var add_lawyer_form = document.getElementById("edit_lawyer_form");
 			add_lawyer_form.submit(); 
 		
 		}
