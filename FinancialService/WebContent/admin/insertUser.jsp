@@ -2,6 +2,8 @@
 
 <%@ include file="../check/index.jsp"%>
 <%@ include file="../check/checkAdmin.jsp"%>  
+<%@page import="dao.*" %>
+<%@page import="database.*" %>
 
 <form class="form-horizontal" id="userForm" method="post" action="../admin/editUserInfo.jsp?type=new">
 

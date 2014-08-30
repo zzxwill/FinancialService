@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import database.Connections;
-import database.Connections4WeChat;
 import tools.Tools;
 //import security.PasswordUtil;
 
@@ -129,7 +128,7 @@ public class ReserveClinicDao {
 	 */
 	public void retrive_deparment() throws SQLException {
 
-		conn = Connections4WeChat.getConnection();
+		conn = Connections.getConnection();
 		//String sql = "SELECT d.name as department  ,u.name, u.title FROM " + table_prefix + "`department` d, " + table_prefix + "user_doctor u  WHERE d.id= u.department";
 
 		String sql = "SELECT id as department_id, name as department FROM " + table_prefix + "department";
@@ -163,7 +162,7 @@ public class ReserveClinicDao {
 	//
 	public void retrive_doctors_by_deparment(int department_id) throws SQLException {
 
-		conn = Connections4WeChat.getConnection();
+		conn = Connections.getConnection();
 		String sql = "SELECT u.id as doctor_id ,u.name, u.title FROM  " + table_prefix + "user_doctor u  WHERE u.department = " + department_id;
 		
 		//当前日期    Will Zhou   5/24/2014
@@ -203,7 +202,7 @@ public class ReserveClinicDao {
 				
 				String sql_doctor_available_amount = "SELECt sum(total_amount - used_amount) FROM 04outpatient_info i, 04outpatient_doctor d WHERE i.id = d.outpatient_id and  date between curdate() and date_sub(curdate(),INTERVAL WEEKDAY(curdate())-6 DAY) and d.doctor_id = " ;
 				sql_doctor_available_amount += rs.getInt(1);
-				conn_doctor_avaialble_amount = Connections4WeChat.getConnection();
+				conn_doctor_avaialble_amount = Connections.getConnection();
 				stmt_doctor_avaialble_amount = conn_doctor_avaialble_amount.createStatement();
 				rs_doctor_avaialble_amount = stmt_doctor_avaialble_amount.executeQuery(sql_doctor_available_amount);
 				/*private Statement  = null;
@@ -242,7 +241,7 @@ public class ReserveClinicDao {
 	 */
 	public void retrive_outpatient() throws SQLException {
 
-		conn = Connections4WeChat.getConnection();
+		conn = Connections.getConnection();
 		//String sql = "SELECT d.name as department  ,u.name, u.title FROM " + table_prefix + "`department` d, " + table_prefix + "user_doctor u  WHERE d.id= u.department";
 
 		String sql = "SELECT `id` as outpatient_id, `date` as outpatient_date, `time`, `type` as outpatient_type, `amount` FROM " + table_prefix + "outpatient_info";
@@ -288,7 +287,7 @@ public class ReserveClinicDao {
 	 */
 	public void retrive_patien_reservation(int userid) throws SQLException {
 
-		conn = Connections4WeChat.getConnection();
+		conn = Connections.getConnection();
 		
 		//String sql = "SELECT d.name as department  ,u.name, u.title FROM " + table_prefix + "`department` d, " + table_prefix + "user_doctor u  WHERE d.id= u.department";
 		String sql = "SELECT  `site`, n.`department`, d.name,  `date` FROM  " + table_prefix + "reservation_normal n, " + table_prefix + "reservation_patient_illness i,  " + table_prefix + "user_doctor d where n.patient_illness_id = i.id and n.doctorid = d.id and userid =  " + userid;
@@ -373,7 +372,7 @@ public class ReserveClinicDao {
 	
 	public void retrive_doctor_reservation() throws SQLException {
 
-		conn = Connections4WeChat.getConnection();
+		conn = Connections.getConnection();
 		
 		//String sql = "SELECT d.name as department  ,u.name, u.title FROM " + table_prefix + "`department` d, " + table_prefix + "user_doctor u  WHERE d.id= u.department";
 		String sql = "SELECT  `site`, n.`department`, i.name, i.purpose , `date` FROM   " + table_prefix + "reservation_normal n,  " + table_prefix + "reservation_patient_illness i where n.patient_illness_id = i.id ";

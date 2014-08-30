@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import database.UserDao;
+import dao.UserDao;
 import login.Validate;
 
 
@@ -88,7 +88,7 @@ public class loginServlet extends HttpServlet {
 	        UserDao userDao = new UserDao();
 		 	String url = "/sys/";
 		 	Validate check = new Validate();
-	        if(check.validate(request.getParameter("loginUserName"), request.getParameter("loginUserPW"))){
+	        if(check.validate_user(request.getParameter("loginUserName"), request.getParameter("loginUserPW"))){
 	        	String loginedUserName = request.getParameter("loginUserName");
 	        	//System.out.println("username:" + username + "\n");
 	        	loginedUserName = java.net.URLEncoder.encode(loginedUserName, "UTF-8");
@@ -106,6 +106,20 @@ public class loginServlet extends HttpServlet {
 	        		session.setAttribute("adminCheck", "false");
 	        	}
 	        	session.setMaxInactiveInterval(60*20);//
+	        	
+	        	
+	        	if(request.getParameter("login_type").equals("admin")){
+	        		url = "/main.jsp";			
+	        		UserDao user_dao = new UserDao();
+	    			
+	    			int user_id = user_dao.get_userid_by_phone(loginedUserName);
+	    			
+	    			session.setAttribute("USERID", user_id);
+	    			session.setAttribute("USER_PHONE", loginedUserName);
+	    			
+	    			
+	        	}
+	        	
 	    		
 	        	request.getRequestDispatcher(url).forward(request, response);
 	        }else {

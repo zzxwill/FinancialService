@@ -1,6 +1,5 @@
 package dao;
 
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +8,6 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 
 import database.Connections;
-import database.Connections4WeChat;
 import tools.Tools;
 //import security.PasswordUtil;
 
@@ -118,7 +116,7 @@ public class ASKPatient {
 		answered_flags = new int[NUM];
 		createDates = new Timestamp[NUM];
 
-		conn = Connections4WeChat.getConnection();
+		conn = Connections.getConnection();
 		String sql = "select * from 04question";
 		//String userName= null;
 		try {

@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 
 import database.Connections;
-import database.Connections4WeChat;
 import tools.Tools;
 //import security.PasswordUtil;
 
@@ -113,7 +112,7 @@ public class AnswerDao {
 		
 		answers_Given_Patient = new String[NUM];
 		
-		conn = Connections4WeChat.getConnection();
+		conn = Connections.getConnection();
 		String sql = "select * from 04answer where question_id=" + question_id;
 		try {
 			int index = 1;

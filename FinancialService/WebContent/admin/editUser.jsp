@@ -3,7 +3,7 @@
 <%@page import="database.*" %>
 <%@ include file="../check/index.jsp"%> 
 <%@ include file="../check/checkAdmin.jsp"%>  
-
+<%@page import="dao.*" %>
 <table width="100%" align="center" border="1" cellpadding="0" cellspacing="0" rules=rows>
 	<tr align="center" bgcolor="#D5D5D5">
 		<td align="center"><strong>用户编号</strong></td>

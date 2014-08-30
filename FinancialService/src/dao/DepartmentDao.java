@@ -23,7 +23,7 @@ public class DepartmentDao {
 	//根据id查询weixinID
 	public String getDepartmentName(int id) throws SQLException {
 
-		conn = Connections4WeChat.getConnection();
+		conn = Connections.getConnection();
 		String sql = "select * from 04department where id='" + id + "'"
 			+ " and valid = '" + 1 + "'" ;
 		String departmentName = null;

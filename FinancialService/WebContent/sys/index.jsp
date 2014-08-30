@@ -33,16 +33,9 @@
 	}
     </script>
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#panel-user_doctor" data-toggle="tab" contenteditable="true" style="cursor: pointer">医生列表</a></li>
+					<li class="active"><a href="#panel-user_doctor" data-toggle="tab" contenteditable="true" style="cursor: pointer">列表</a></li>
 					
-					<li><a href="#panel-user_patient" data-toggle="tab" contenteditable="true" style="cursor: pointer">患者列表</a></li>
-					
-					<li><a href="#panel-question" data-toggle="tab" contenteditable="true" style="cursor: pointer">提问列表</a></li>
-					
-					<li><a href="#panel-reservation" data-toggle="tab" contenteditable="true" style="cursor: pointer">预约列表</a></li>
-					
-					<li><a href="#panel-outpatient" data-toggle="tab"
-						contenteditable="true" style="cursor: pointer">出诊时间管理</a></li>
+				
 					
 					<li><a href="#panel-user" data-toggle="tab"
 						contenteditable="true" style="cursor: pointer">用户信息</a></li>
@@ -71,38 +64,13 @@
 				<%}else if(adminCheck.endsWith("true")){ %>
 
 				<div class="tab-content">
-					<%//医生列表 %>
+					<%//列表 %>
 					<div class="tab-pane active" id="panel-user_doctor">
 						<%-- <%@ include file="../admin/insertUser.jsp"%>  --%>
-						<%@ include file="../admin/list_doctor.jsp"%>
+						<%-- <%@ include file="../admin/list_doctor.jsp"%> --%>
 					</div>
 
-					<%//患者列表 %>
-					<div class="tab-pane" id="panel-user_patient">
-						<%-- <%@ include file="../admin/insertUser.jsp"%>  --%>
-						<%@ include file="../admin/list_patient.jsp"%>
-					</div>
-					
-					
-					<%//提问列表%>
-					<div class="tab-pane" id="panel-question">
-						<%-- <%@ include file="../admin/insertUser.jsp"%>  --%>
-						<%@ include file="../admin/list_question.jsp"%>
-					</div>
-					
-					
-					<%//预约列表%>
-					<div class="tab-pane" id="panel-reservation">
-						<%-- <%@ include file="../admin/insertUser.jsp"%>  --%>
-						<%@ include file="../admin/list_reservation.jsp"%>
-					</div>
-					
-					
-					<%//出诊时间管理 %>
-					<div class="tab-pane" id="panel-outpatient">
-						<%-- <%@ include file="../admin/insertUser.jsp"%>  --%>
-						<%@ include file="../admin/manage_outpatient.jsp"%>
-					</div>
+				
 
 					<%//用户信息 %>
 					<div class="tab-pane" id="panel-user">
@@ -115,12 +83,7 @@
 				</div>
 				<%}else{ %>
 				<div class="tab-content">
-					<%//医生列表 %>
-					<div class="tab-pane active" id="panel-user_doctor">
-						<%-- <%@ include file="../admin/insertUser.jsp"%>  --%>
-						<%@ include file="../admin/list_doctor.jsp"%>
-					</div>
-
+					
 					<%//用户信息 %>
 					<div class="tab-pane" id="panel-user">
 						<%@ include file="../common/editUser.jsp"%>

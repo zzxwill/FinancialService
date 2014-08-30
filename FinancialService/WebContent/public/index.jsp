@@ -1,23 +1,46 @@
+<%@page import="model.GuaranteeCategory"%>
+<%@page import="java.util.*"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="org.nutz.dao.impl.*"%>
+<%@page import="org.nutz.dao.*"%>
+<%@page import="model.*"%>
+<%@page import="database.Connections"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="../common/taglibs.jsp"%>
 <%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+DataSource dataSource = Connections.getDataSource();
+Dao dao = new NutDao(dataSource);
+List<Article> articles = dao.query(Article.class, Cnd.where("status", "=", 1L).limit(6).desc("level").desc("id"));
+pageContext.setAttribute("articles", articles);
+
+List<Rzsj> rzsjs = dao.query(Rzsj.class, Cnd.NEW().limit(2).desc("id"));
+pageContext.setAttribute("rzsjs", rzsjs);
+
+List<Jrtj> jrtjs = dao.query(Jrtj.class, Cnd.NEW().limit(2).desc("id"));
+pageContext.setAttribute("jrtjs", jrtjs);
+
+
+/*Display one item of lawyer information  Will Zhou  8/22/2014*/
+List<Lawyer> lawyers = dao.query(Lawyer.class, Cnd.where("status", "=", 1L).limit(1).desc("id"));
+pageContext.setAttribute("lawyers", lawyers);
+
+List<Financing> financings = dao.query(Financing.class, Cnd.where("status", "=", "1").limit(dao.createPager(0, 6)));
+for (Financing item : financings) {  
+    dao.fetchLinks(item, null);
+}
+pageContext.setAttribute("financings", financings);
 %>
-
-<%-- <%@ include file="../common/header.html"%> --%>
 <jsp:include page="../common/header.jsp" flush="true"/> 
-<link href="../css/index.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/css/index.css" rel="stylesheet" type="text/css" />
 
-	<table width="100%" border="0" align="center" cellpadding="0"
+	<!-- <table width="100%" border="0" align="center" cellpadding="0"
 		cellspacing="0">
 		<tr>
 			<td height="5" bgcolor="#FFFFFF"><img src="../images/space.gif"
 				width="2" height="2" /></td>
 		</tr>
-	</table>
+	</table> -->
 	<table width="100%" border="0" align="center" cellpadding="0"
 		cellspacing="0">
 		<tr>
@@ -25,7 +48,7 @@
 					width="945" border="0" align="center" cellpadding="0"
 					cellspacing="0">
 					<tr>
-						<td><img src="../images/Banner01.jpg" width="945" height="312" /></td>
+						<td><img src="${ctx}/images/Banner01.jpg" width="945" height="312" /></td>
 					</tr>
 				</table></td>
 		</tr>
@@ -33,7 +56,7 @@
 	<table width="100%" border="0" align="center" cellpadding="0"
 		cellspacing="0">
 		<tr>
-			<td height="10" bgcolor="#CCCCCC"><img src="../images/space.gif"
+			<td height="10" bgcolor="#CCCCCC"><img src="${ctx}/images/space.gif"
 				width="2" height="2" /></td>
 		</tr>
 	</table>
@@ -45,12 +68,12 @@
 					cellpadding="0" cellspacing="0" class="mbg">
 					<tr>
 						<td width="25">&nbsp;</td>
-						<td width="195" height="110"><a href="#"><img
-								src="../images/an01.jpg" border="0" width="184" height="61"
+						<td width="195" height="110"><a href="${ctx}/public/wyrz.jsp"><img
+								src="${ctx}/images/an01.jpg" border="0" width="184" height="61"
 								id="Image1"
 								onmouseover="MM_swapImage('Image1','','../images/an012.jpg',1)"
 								onmouseout="MM_swapImgRestore()" /></a></td>
-						<td width="212"><a href="#"><img src="../images/an02.jpg"
+						<td width="212"><a href="${ctx}/public/invest.jsp"><img src="${ctx}/images/an02.jpg"
 								border="0" width="184" height="61" id="Image2"
 								onmouseover="MM_swapImage('Image2','','../images/an022.jpg',1)"
 								onmouseout="MM_swapImgRestore()" /></a></td>
@@ -176,30 +199,30 @@
 								</tr>
 							</table></td>
 						<td width="64" valign="middle" class="copyright"><p>
-								&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/search.jpg"
+								&nbsp;&nbsp;&nbsp;<a href="#"><img src="${ctx}/images/search.jpg"
 									border="0" width="24" height="23" /></a><br /> 快速搜索
 							</p></td>
 					</tr>
 				</table>
 				<table width="945" border="0" cellpadding="0" cellspacing="0">
 					<tr>
-						<td width="30" bgcolor="#FFFFFF"><img src="../images/L1.jpg"
+						<td width="30" bgcolor="#FFFFFF"><img src="${ctx}/images/L1.jpg"
 							width="31" height="41" /></td>
-						<td valign="middle" background="../images/L4.jpg"><table
+						<td valign="middle" background="${ctx}/images/L4.jpg"><table
 								width="99%" border="0" align="center" cellpadding="0"
 								cellspacing="0">
 								<tr>
-									<td width="16%"><img src="../images/d1.gif" width="441"
+									<td width="16%"><img src="${ctx}/images/d1.gif" width="441"
 										height="27" /></td>
-									<td width="84%" align="right"><img src="../images/wetuo.gif"
+									<td width="84%" align="right"><img src="${ctx}/images/wetuo.gif"
 										width="84" height="18" /></td>
 								</tr>
 							</table></td>
-						<td width="27" bgcolor="#FFFFFF"><img src="../images/l6.jpg"
+						<td width="27" bgcolor="#FFFFFF"><img src="${ctx}/images/l6.jpg"
 							width="27" height="41" /></td>
 					</tr>
 					<tr>
-						<td background="../images/L2.jpg"><img src="../images/L2.jpg"
+						<td background="${ctx}/images/L2.jpg"><img src="${ctx}/images/L2.jpg"
 							width="31" height="179" /></td>
 						<td align="center" bgcolor="#E5E3E4"><table width="98%"
 								border="0" cellspacing="0" cellpadding="0">
@@ -208,24 +231,24 @@
 											cellpadding="0" cellspacing="0">
 											<tr>
 												<td height="20" align="center"><img
-													src="../images/space.gif" width="2" height="2" /></td>
+													src="${ctx}/images/space.gif" width="2" height="2" /></td>
 											</tr>
 										</table>
 										<table width="96%" border="0" cellpadding="0" cellspacing="0">
 											<tr>
-												<td align="center"><img src="../images/tz01.gif"
+												<td align="center"><img src="${ctx}/images/tz01.gif"
 													width="435" height="52" /></td>
 											</tr>
 										</table>
 										<table width="96%" border="0" cellpadding="0" cellspacing="0">
 											<tr>
-												<td align="center"><img src="../images/tz02.gif"
+												<td align="center"><img src="${ctx}/images/tz02.gif"
 													width="435" height="52" /></td>
 											</tr>
 										</table>
 										<table width="96%" border="0" cellpadding="0" cellspacing="0">
 											<tr>
-												<td align="center"><img src="../images/tz03.gif"
+												<td align="center"><img src="${ctx}/images/tz03.gif"
 													width="435" height="52" /></td>
 											</tr>
 										</table></td>
@@ -233,7 +256,7 @@
 											cellpadding="0" cellspacing="0" class="news2">
 											<tr>
 												<td width="18%" align="center"><img
-													src="../images/jiantou.gif" width="8" height="9" /></td>
+													src="${ctx}/images/jiantou.gif" width="8" height="9" /></td>
 												<td width="82%">某金融机构高管个人经营借款风险调查</td>
 											</tr>
 										</table>
@@ -241,7 +264,7 @@
 											class="news2">
 											<tr>
 												<td width="18%" align="center"><img
-													src="../images/jiantou.gif" width="8" height="9" /></td>
+													src="${ctx}/images/jiantou.gif" width="8" height="9" /></td>
 												<td width="82%">某金融机构高管个人经营借款风险调查</td>
 											</tr>
 										</table>
@@ -249,7 +272,7 @@
 											class="news2">
 											<tr>
 												<td width="18%" align="center"><img
-													src="../images/jiantou.gif" width="8" height="9" /></td>
+													src="${ctx}/images/jiantou.gif" width="8" height="9" /></td>
 												<td width="82%">某金融机构高管个人经营借款风险调查</td>
 											</tr>
 										</table>
@@ -257,7 +280,7 @@
 											class="news2">
 											<tr>
 												<td width="18%" align="center"><img
-													src="../images/jiantou.gif" width="8" height="9" /></td>
+													src="${ctx}/images/jiantou.gif" width="8" height="9" /></td>
 												<td width="82%">某金融机构高管个人经营借款风险调查</td>
 											</tr>
 										</table>
@@ -265,7 +288,7 @@
 											class="news2">
 											<tr>
 												<td width="18%" align="center"><img
-													src="../images/jiantou.gif" width="8" height="9" /></td>
+													src="${ctx}/images/jiantou.gif" width="8" height="9" /></td>
 												<td width="82%">某金融机构高管个人经营借款风险调查</td>
 											</tr>
 										</table>
@@ -273,42 +296,42 @@
 											class="news2">
 											<tr>
 												<td width="18%" align="center"><img
-													src="../images/jiantou.gif" width="8" height="9" /></td>
+													src="${ctx}/images/jiantou.gif" width="8" height="9" /></td>
 												<td width="82%">某金融机构高管个人经营借款风险调查</td>
 											</tr>
 										</table></td>
 								</tr>
 							</table></td>
-						<td background="../images/l7.jpg"><img src="../images/l7.jpg"
+						<td background="${ctx}/images/l7.jpg"><img src="${ctx}/images/l7.jpg"
 							width="27" height="179" /></td>
 					</tr>
 					<tr>
-						<td height="23" bgcolor="#FFFFFF"><img src="../images/L3.jpg"
+						<td height="23" bgcolor="#FFFFFF"><img src="${ctx}/images/L3.jpg"
 							width="31" height="23" /></td>
-						<td background="../images/L5.jpg">&nbsp;</td>
-						<td bgcolor="#FFFFFF"><img src="../images/l8.jpg" width="27"
+						<td background="${ctx}/images/L5.jpg">&nbsp;</td>
+						<td bgcolor="#FFFFFF"><img src="${ctx}/images/l8.jpg" width="27"
 							height="23" /></td>
 					</tr>
 				</table>
 				<table width="945" border="0" cellpadding="0" cellspacing="0">
 					<tr>
-						<td width="30" bgcolor="#FFFFFF"><img src="../images/L1.jpg"
+						<td width="30" bgcolor="#FFFFFF"><img src="${ctx}/images/L1.jpg"
 							width="31" height="41" /></td>
-						<td valign="middle" background="../images/L4.jpg"><table
+						<td valign="middle" background="${ctx}/images/L4.jpg"><table
 								width="99%" border="0" align="center" cellpadding="0"
 								cellspacing="0">
 								<tr>
-									<td width="16%"><img src="../images/rz.gif" width="178"
+									<td width="16%"><img src="${ctx}/images/rz.gif" width="178"
 										height="27" /></td>
-									<td width="84%" align="right"><img src="../images/wetuo.gif"
+									<td width="84%" align="right"><img src="${ctx}/images/wetuo.gif"
 										width="84" height="18" /></td>
 								</tr>
 							</table></td>
-						<td width="27" bgcolor="#FFFFFF"><img src="../images/l6.jpg"
+						<td width="27" bgcolor="#FFFFFF"><img src="${ctx}/images/l6.jpg"
 							width="27" height="41" /></td>
 					</tr>
 					<tr>
-						<td background="../images/la1.gif"><img src="../images/la1.gif"
+						<td background="${ctx}/images/la1.gif"><img src="${ctx}/images/la1.gif"
 							width="31" height="29" /></td>
 						<td height="230" align="center" bgcolor="#F5E1CF"><table
 								width="95%" border="0" cellpadding="0" cellspacing="0"
@@ -321,119 +344,62 @@
 									<td width="100" align="center">发布日期</td>
 									<td width="100" align="center">信息状态</td>
 									<td width="108" align="center">查看详情<img
-										src="../images/space.gif" width="2" height="2" /></td>
+										src="${ctx}/images/space.gif" width="2" height="2" /></td>
 								</tr>
 							</table>
+							<c:forEach var="item" items="${financings}">
 							<table width="95%" border="0" cellpadding="0" cellspacing="0"
 								class="news2">
 								<tr>
-									<td width="180" align="center">460</td>
-									<td width="135" align="center">1</td>
-									<td width="117" align="center">24</td>
-									<td width="100" align="center">房屋抵押</td>
-									<td width="100" align="center">2014-05-14</td>
-									<td width="100" align="center">已审核</td>
-									<td width="108" align="center">详细情况</td>
+									<td width="180" align="center">${item.amount}</td>
+									<td width="135" align="center">${item.period.time}</td>
+									<td width="117" align="center">${item.rate}</td>
+									<td width="100" align="center">${item.guaranteeCategory.name}</td>
+									<td width="100" align="center"><fmt:formatDate value="${item.publishDate}" pattern="yyyy-MM-dd"/></td>
+									<td width="100" align="center"><c:if test="${item.status == 1}">审核</c:if><c:if test="${item.status != 1}">未审核</c:if></td>
+									<td width="108" align="center"><a href="rzdetail.jsp?id=${item.id}">详细情况</a></td>
 								</tr>
 							</table>
-							<table width="95%" border="0" cellpadding="0" cellspacing="0"
-								class="news2">
-								<tr>
-									<td width="180" align="center">460</td>
-									<td width="135" align="center">1</td>
-									<td width="117" align="center">24</td>
-									<td width="100" align="center">房屋抵押</td>
-									<td width="100" align="center">2014-05-14</td>
-									<td width="100" align="center">已审核</td>
-									<td width="108" align="center">详细情况</td>
-								</tr>
-							</table>
-							<table width="95%" border="0" cellpadding="0" cellspacing="0"
-								class="news2">
-								<tr>
-									<td width="180" align="center">460</td>
-									<td width="135" align="center">1</td>
-									<td width="117" align="center">24</td>
-									<td width="100" align="center">房屋抵押</td>
-									<td width="100" align="center">2014-05-14</td>
-									<td width="100" align="center">已审核</td>
-									<td width="108" align="center">详细情况</td>
-								</tr>
-							</table>
-							<table width="95%" border="0" cellpadding="0" cellspacing="0"
-								class="news2">
-								<tr>
-									<td width="180" align="center">460</td>
-									<td width="135" align="center">1</td>
-									<td width="117" align="center">24</td>
-									<td width="100" align="center">房屋抵押</td>
-									<td width="100" align="center">2014-05-14</td>
-									<td width="100" align="center">已审核</td>
-									<td width="108" align="center">详细情况</td>
-								</tr>
-							</table>
-							<table width="95%" border="0" cellpadding="0" cellspacing="0"
-								class="news2">
-								<tr>
-									<td width="180" align="center">460</td>
-									<td width="135" align="center">1</td>
-									<td width="117" align="center">24</td>
-									<td width="100" align="center">房屋抵押</td>
-									<td width="100" align="center">2014-05-14</td>
-									<td width="100" align="center">已审核</td>
-									<td width="108" align="center">详细情况</td>
-								</tr>
-							</table>
-							<table width="95%" border="0" cellpadding="0" cellspacing="0"
-								class="news2">
-								<tr>
-									<td width="180" align="center">460</td>
-									<td width="135" align="center">1</td>
-									<td width="117" align="center">24</td>
-									<td width="100" align="center">房屋抵押</td>
-									<td width="100" align="center">2014-05-14</td>
-									<td width="100" align="center">已审核</td>
-									<td width="108" align="center">详细情况</td>
-								</tr>
-							</table></td>
-						<td background="../images/la2.gif"><img src="../images/la2.gif"
+							</c:forEach>
+						</td>
+						<td background="${ctx}/images/la2.gif"><img src="${ctx}/images/la2.gif"
 							width="27" height="19" /></td>
 					</tr>
 					<tr>
-						<td height="21" bgcolor="#FFFFFF"><img src="../images/la4.gif"
+						<td height="21" bgcolor="#FFFFFF"><img src="${ctx}/images/la4.gif"
 							width="31" height="21" /></td>
-						<td background="../images/la5.gif"><img src="../images/la5.gif"
+						<td background="${ctx}/images/la5.gif"><img src="${ctx}/images/la5.gif"
 							width="28" height="21" /></td>
-						<td bgcolor="#FFFFFF"><img src="../images/la3.gif" width="27"
+						<td bgcolor="#FFFFFF"><img src="${ctx}/images/la3.gif" width="27"
 							height="21" /></td>
 					</tr>
 				</table>
 				<table width="945" border="0" cellpadding="0" cellspacing="0">
 					<tr>
 						<td height="110" align="center" bgcolor="#FFFFFF"><p>
-								<img src="../images/ad01.gif" width="919" height="119" /><br />
+								<img src="${ctx}/images/ad01.gif" width="919" height="119" /><br />
 							</p></td>
 					</tr>
 				</table>
 				<table width="945" border="0" cellpadding="0" cellspacing="0">
 					<tr>
-						<td width="30" bgcolor="#FFFFFF"><img src="../images/L1.jpg"
+						<td width="30" bgcolor="#FFFFFF"><img src="${ctx}/images/L1.jpg"
 							width="31" height="41" /></td>
-						<td valign="middle" background="../images/L4.jpg"><table
+						<td valign="middle" background="${ctx}/images/L4.jpg"><table
 								width="99%" border="0" align="center" cellpadding="0"
 								cellspacing="0">
 								<tr>
-									<td width="16%"><img src="../images/rz2.gif" width="482"
+									<td width="16%"><img src="${ctx}/images/rz2.gif" width="482"
 										height="27" /></td>
-									<td width="84%" align="right"><img src="../images/wetuo.gif"
+									<td width="84%" align="right"><img src="${ctx}/images/wetuo.gif"
 										width="84" height="18" /></td>
 								</tr>
 							</table></td>
-						<td width="27" bgcolor="#FFFFFF"><img src="../images/l6.jpg"
+						<td width="27" bgcolor="#FFFFFF"><img src="${ctx}/images/l6.jpg"
 							width="27" height="41" /></td>
 					</tr>
 					<tr>
-						<td background="../images/la1.gif"><img src="../images/la1.gif"
+						<td background="${ctx}/images/la1.gif"><img src="${ctx}/images/la1.gif"
 							width="31" height="29" /></td>
 						<td height="180" align="center" bgcolor="#F5E1CF"><table
 								width="99%" border="0" cellspacing="0" cellpadding="0">
@@ -447,33 +413,33 @@
 															<td align="left" class="title"><table width="99%"
 																	border="0" cellspacing="0" cellpadding="0">
 																	<tr>
-																		<td width="100"><img src="../images/xm1.jpg"
+																		<td width="100"><img src="${rzsjs[0].pic}"
 																			width="82" height="121" /></td>
 																		<td><table width="95%" border="0" cellpadding="0"
 																				cellspacing="0">
 																				<tr>
 																					<td height="30" align="left" class="title">
-																						某金融机构高管个人经营借款</td>
+																						${rzsjs[0].name}</td>
 																				</tr>
 																			</table>
 																			<table width="95%" border="0" cellpadding="0"
 																				cellspacing="0">
 																				<tr>
-																					<td height="35" align="left" class="txt">借款人系某融资性担保公司的法定代表人，名下拥有包括某融资性担保公司在内的多家公司股份、多套房产..</td>
+																					<td height="35" align="left" class="txt">${rzsjs[0].context}</td>
 																				</tr>
 																			</table>
 																			<table width="98%" border="0" cellpadding="0"
 																				cellspacing="0">
 																				<tr>
-																					<td height="35" align="left" class="txt2">金额：150万
-																						年利率：12% 期限：12个月 进度80%</td>
+																					<td height="35" align="left" class="txt2">金额：${rzsjs[0].amount}
+																						年利率：${rzsjs[0].rate}期限：${rzsjs[0].duration} 进度${rzsjs[0].progress}</td>
 																				</tr>
 																			</table>
 																			<table width="95%" border="0" cellpadding="0"
 																				cellspacing="0">
 																				<tr>
-																					<td align="left" class="title">经办律师：王律师 <br />
-																						联系方式：0571-85387122 QQ:123123333
+																					<td align="left" class="title">经办律师：${rzsjs[0].layer} <br />
+																						联系方式：${rzsjs[0].contact}
 																					</td>
 																				</tr>
 																			</table></td>
@@ -486,33 +452,33 @@
 									<td width="50%" height="160" align="right"><table
 											width="99%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
-												<td width="100"><img src="../images/xm1.jpg" width="82"
+												<td width="100"><img src="${rzsjs[1].pic}" width="82"
 													height="121" /></td>
 												<td><table width="95%" border="0" cellpadding="0"
 														cellspacing="0">
 														<tr>
 															<td height="30" align="left" class="title">
-																某金融机构高管个人经营借款</td>
+																${rzsjs[1].name}</td>
 														</tr>
 													</table>
 													<table width="95%" border="0" cellpadding="0"
 														cellspacing="0">
 														<tr>
-															<td height="35" align="left" class="txt">借款人系某融资性担保公司的法定代表人，名下拥有包括某融资性担保公司在内的多家公司股份、多套房产..</td>
+															<td height="35" align="left" class="txt">${rzsjs[1].context}</td>
 														</tr>
 													</table>
 													<table width="95%" border="0" cellpadding="0"
 														cellspacing="0">
 														<tr>
-															<td height="35" align="left" class="txt2">金额：150万
-																年利率：12% 期限：12个月 进度80%</td>
+															<td height="35" align="left" class="txt2">金额：${rzsjs[1].amount}
+                                                                                                                                                                                                                        年利率：${rzsjs[1].rate}期限：${rzsjs[1].duration} 进度${rzsjs[1].progress}</td>
 														</tr>
 													</table>
 													<table width="95%" border="0" cellpadding="0"
 														cellspacing="0">
 														<tr>
-															<td align="left" class="title">经办律师：王律师 <br />
-																联系方式：0571-85387122 QQ:123123333
+															<td align="left" class="title">经办律师：${rzsjs[1].layer}<br />
+																联系方式：${rzsjs[1].contact}
 															</td>
 														</tr>
 													</table></td>
@@ -520,36 +486,36 @@
 										</table></td>
 								</tr>
 							</table></td>
-						<td background="../images/la2.gif">&nbsp;</td>
+						<td background="${ctx}/images/la2.gif">&nbsp;</td>
 					</tr>
 					<tr>
-						<td height="21" bgcolor="#FFFFFF"><img src="../images/la4.gif"
+						<td height="21" bgcolor="#FFFFFF"><img src="${ctx}/images/la4.gif"
 							width="31" height="21" /></td>
-						<td background="../images/la5.gif"><img src="../images/la5.gif"
+						<td background="${ctx}/images/la5.gif"><img src="${ctx}/images/la5.gif"
 							width="28" height="21" /></td>
-						<td bgcolor="#FFFFFF"><img src="../images/la3.gif" width="27"
+						<td bgcolor="#FFFFFF"><img src="${ctx}/images/la3.gif" width="27"
 							height="21" /></td>
 					</tr>
 				</table>
 				<table width="945" border="0" cellpadding="0" cellspacing="0">
 					<tr>
-						<td width="30" bgcolor="#FFFFFF"><img src="../images/L1.jpg"
+						<td width="30" bgcolor="#FFFFFF"><img src="${ctx}/images/L1.jpg"
 							width="31" height="41" /></td>
-						<td valign="middle" background="../images/L4.jpg"><table
+						<td valign="middle" background="${ctx}/images/L4.jpg"><table
 								width="99%" border="0" align="center" cellpadding="0"
 								cellspacing="0">
 								<tr>
-									<td width="16%"><img src="../images/rz3.gif" width="482"
+									<td width="16%"><img src="${ctx}/images/rz3.gif" width="482"
 										height="27" /></td>
-									<td width="84%" align="right"><img src="../images/wetuo.gif"
+									<td width="84%" align="right"><img src="${ctx}/images/wetuo.gif"
 										width="84" height="18" /></td>
 								</tr>
 							</table></td>
-						<td width="27" bgcolor="#FFFFFF"><img src="../images/l6.jpg"
+						<td width="27" bgcolor="#FFFFFF"><img src="${ctx}/images/l6.jpg"
 							width="27" height="41" /></td>
 					</tr>
 					<tr>
-						<td background="../images/L2.jpg"><img src="../images/L2.jpg"
+						<td background="${ctx}/images/L2.jpg"><img src="${ctx}/images/L2.jpg"
 							width="31" height="179" /></td>
 						<td height="200" align="center" bgcolor="#E5E3E4"><table
 								width="99%" border="0" cellspacing="0" cellpadding="0">
@@ -557,42 +523,42 @@
 									<td width="438"><table width="434" border="0"
 											cellspacing="0" cellpadding="0">
 											<tr>
-												<td width="110"><img src="../images/photo.jpg" width="84"
+												<td width="110"><img src="${jrtjs[0].pic}" width="84"
 													height="118" /></td>
 												<td align="left"><table width="330" border="0"
 														cellpadding="0" cellspacing="0">
 														<tr>
 															<td height="30" align="left" class="title">
-																工银绝对收益混合发起B 代码：000672</td>
+																${jrtjs[0].name} 代码：${jrtjs[0].code}</td>
 														</tr>
 													</table>
 													<table width="330" border="0" cellpadding="0"
 														cellspacing="0">
 														<tr>
-															<td height="20" colspan="2" align="left" class="txt">单位净值（2014-05-27）：1.0570（-0.28%）</td>
+															<td height="20" colspan="2" align="left" class="txt">单位净值（${jrtjs[0].iopvdate}）：${jrtjs[0].iopv}</td>
 														</tr>
 														<tr>
 															<td height="18" align="left" class="txt">类 型：
-																混合型|中高风险</td>
+																${jrtjs[0].type}</td>
 															<td height="18" align="left" class="txt">成 立 日：
-																2001-12-18</td>
+																${jrtjs[0].startdate}</td>
 														</tr>
 														<tr>
-															<td height="20" align="left" class="txt">管 理 人： 华夏基金</td>
-															<td height="20" align="left" class="txt">基金经理： 童汀 等
+															<td height="20" align="left" class="txt">管 理 人： ${jrtjs[0].admin}</td>
+															<td height="20" align="left" class="txt">基金经理：${jrtjs[0].manager}
 															</td>
 														</tr>
 														<tr>
 															<td height="20" align="left" class="txt">规 模：
-																81.36亿元（14-03-31）</td>
-															<td height="20" align="left" class="txt">评级： 5星</td>
+																${jrtjs[0].scale}</td>
+															<td height="20" align="left" class="txt">评级：${jrtjs[0].grade}星</td>
 														</tr>
 													</table>
 													<table width="330" border="0" cellpadding="0"
 														cellspacing="0">
 														<tr>
-															<td align="left" class="title">经办律师：王律师 <br />
-																联系方式：0571-85387122 QQ:123123333
+															<td align="left" class="title">经办律师：${jrtjs[0].layer} <br />
+																联系方式：${jrtjs[0].contact}
 															</td>
 														</tr>
 													</table></td>
@@ -601,57 +567,57 @@
 									<td width="438" height="160" align="left"><table
 											width="434" border="0" cellspacing="0" cellpadding="0">
 											<tr>
-												<td width="110"><img src="../images/photo.jpg" width="84"
-													height="118" /></td>
-												<td align="left"><table width="330" border="0"
-														cellpadding="0" cellspacing="0">
-														<tr>
-															<td height="30" align="left" class="title">
-																工银绝对收益混合发起B 代码：000672</td>
-														</tr>
-													</table>
-													<table width="330" border="0" cellpadding="0"
-														cellspacing="0">
-														<tr>
-															<td height="20" colspan="2" align="left" class="txt">单位净值（2014-05-27）：1.0570（-0.28%）</td>
-														</tr>
-														<tr>
-															<td height="18" align="left" class="txt">类 型：
-																混合型|中高风险</td>
-															<td height="18" align="left" class="txt">成 立 日：
-																2001-12-18</td>
-														</tr>
-														<tr>
-															<td height="20" align="left" class="txt">管 理 人： 华夏基金</td>
-															<td height="20" align="left" class="txt">基金经理： 童汀 等
-															</td>
-														</tr>
-														<tr>
-															<td height="20" align="left" class="txt">规 模：
-																81.36亿元（14-03-31）</td>
-															<td height="20" align="left" class="txt">评级： 5星</td>
-														</tr>
-													</table>
-													<table width="330" border="0" cellpadding="0"
-														cellspacing="0">
-														<tr>
-															<td align="left" class="title">经办律师：王律师 <br />
-																联系方式：0571-85387122 QQ:123123333
-															</td>
-														</tr>
-													</table></td>
+												<td width="110"><img src="${jrtjs[1].pic}" width="84"
+                                                    height="118" /></td>
+                                                <td align="left"><table width="330" border="0"
+                                                        cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td height="30" align="left" class="title">
+                                                                ${jrtjs[1].name} 代码：${jrtjs[1].code}</td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="330" border="0" cellpadding="0"
+                                                        cellspacing="0">
+                                                        <tr>
+                                                            <td height="20" colspan="2" align="left" class="txt">单位净值（${jrtjs[1].iopvdate}）：${jrtjs[1].iopv}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td height="18" align="left" class="txt">类 型：
+                                                                ${jrtjs[1].type}</td>
+                                                            <td height="18" align="left" class="txt">成 立 日：
+                                                                ${jrtjs[1].startdate}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td height="20" align="left" class="txt">管 理 人： ${jrtjs[1].admin}</td>
+                                                            <td height="20" align="left" class="txt">基金经理：${jrtjs[1].manager}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td height="20" align="left" class="txt">规 模：
+                                                                ${jrtjs[1].scale}</td>
+                                                            <td height="20" align="left" class="txt">评级：${jrtjs[1].grade}星</td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="330" border="0" cellpadding="0"
+                                                        cellspacing="0">
+                                                        <tr>
+                                                            <td align="left" class="title">经办律师：${jrtjs[1].layer} <br />
+                                                                                                                                                                                                                            联系方式：${jrtjs[1].contact}
+                                                            </td>
+                                                        </tr>
+                                                    </table></td>
 											</tr>
 										</table></td>
 								</tr>
 							</table></td>
-						<td background="../images/l7.jpg"><img src="../images/l7.jpg"
+						<td background="${ctx}/images/l7.jpg"><img src="${ctx}/images/l7.jpg"
 							width="27" height="179" /></td>
 					</tr>
 					<tr>
-						<td height="23" bgcolor="#FFFFFF"><img src="../images/L3.jpg"
+						<td height="23" bgcolor="#FFFFFF"><img src="${ctx}/images/L3.jpg"
 							width="31" height="23" /></td>
-						<td background="../images/L5.jpg">&nbsp;</td>
-						<td bgcolor="#FFFFFF"><img src="../images/l8.jpg" width="27"
+						<td background="${ctx}/images/L5.jpg">&nbsp;</td>
+						<td bgcolor="#FFFFFF"><img src="${ctx}/images/l8.jpg" width="27"
 							height="23" /></td>
 					</tr>
 				</table>
@@ -667,8 +633,8 @@
 							</table>
 							<table width="85%" border="0" cellpadding="0" cellspacing="0">
 								<tr>
-									<td height="22"><img src="../images/d1.jpg" width="323"
-										height="50" /></td>
+									<td height="22"><a href="${ctx}/public/articlelist.jsp"><img src="${ctx}/images/d1.jpg" width="323"
+										height="50" /></a></td>
 								</tr>
 							</table>
 							<table width="85%" border="0" cellpadding="0" cellspacing="0">
@@ -676,55 +642,18 @@
 									<td height="22">&nbsp;</td>
 								</tr>
 							</table>
+							<c:forEach var="item" items="${articles}">
 							<table width="97%" border="0" align="center" cellpadding="0"
 								cellspacing="0" class="news2">
 								<tr>
-									<td width="30" align="center"><img src="../images/jian.jpg"
+									<td width="30" align="center"><img src="${ctx}/images/jian.jpg"
 										width="15" height="15" /></td>
-									<td width="88%" height="33">某金融机构高管个人经营借款风险调查</td>
+									<td width="88%" height="33"><a href="${ctx}/public/articledetail.jsp?id=${item.id}">${item.title}</a></td>
 								</tr>
 							</table>
-							<table width="97%" border="0" align="center" cellpadding="0"
-								cellspacing="0" class="news2">
-								<tr>
-									<td width="30" align="center"><img src="../images/jian.jpg"
-										width="15" height="15" /></td>
-									<td width="88%" height="33">某金融机构高管个人经营借款风险调查</td>
-								</tr>
-							</table>
-							<table width="97%" border="0" align="center" cellpadding="0"
-								cellspacing="0" class="news2">
-								<tr>
-									<td width="30" align="center"><img src="../images/jian.jpg"
-										width="15" height="15" /></td>
-									<td width="88%">某金融机构高管个人经营借款风险调查</td>
-								</tr>
-							</table>
-							<table width="97%" border="0" align="center" cellpadding="0"
-								cellspacing="0" class="news2">
-								<tr>
-									<td width="30" align="center"><img src="../images/jian.jpg"
-										width="15" height="15" /></td>
-									<td width="88%" height="33">某金融机构高管个人经营借款风险调查</td>
-								</tr>
-							</table>
-							<table width="97%" border="0" align="center" cellpadding="0"
-								cellspacing="0" class="news2">
-								<tr>
-									<td width="30" align="center"><img src="../images/jian.jpg"
-										width="15" height="15" /></td>
-									<td width="88%" height="33">某金融机构高管个人经营借款风险调查</td>
-								</tr>
-							</table>
-							<table width="97%" border="0" align="center" cellpadding="0"
-								cellspacing="0" class="news2">
-								<tr>
-									<td width="30" align="center"><img src="../images/jian.jpg"
-										width="15" height="15" /></td>
-									<td width="88%">某金融机构高管个人经营借款风险调查</td>
-								</tr>
-							</table></td>
-						<td width="12"><img src="../images/ge.jpg" width="12"
+							</c:forEach>
+						</td>
+						<td width="12"><img src="${ctx}/images/ge.jpg" width="12"
 							height="281" /></td>
 						<td width="307" valign="top"><table width="85%" border="0"
 								cellpadding="0" cellspacing="0">
@@ -734,11 +663,38 @@
 							</table>
 							<table width="85%" border="0" cellpadding="0" cellspacing="0">
 								<tr>
-									<td height="22"><img src="../images/lv.jpg" width="307"
+									<td height="22"><img src="${ctx}/images/lv.jpg" width="307"
 										height="50" /></td>
 								</tr>
 							</table>
+							
+							<c:forEach var="item" items="${lawyers}">
 							<table width="93%" border="0" align="center" cellpadding="0"
+								cellspacing="0">
+								<tr>
+									<td width="177" align="left" valign="top"><span
+										class="title">${item.name} ${item.title} </span><br /> <span class="search_txt">${item.description}
+									</span></td>
+									<td width="117" align="right" valign="top"><br /> <img
+										src="${ctx}/upload/${item.figure_path}" width="84" height="118" /></td>
+								</tr>
+							</table>
+							
+							
+							
+							
+						<%-- 	<table width="97%" border="0" align="center" cellpadding="0"
+								cellspacing="0" class="news2">
+								<tr>
+									<td width="30" align="center"><img src="${ctx}/images/jian.jpg"
+										width="15" height="15" /></td>
+									<td width="88%" height="33"><a href="${ctx}/public/articledetail.jsp?id=${item.id}">${item.title}</a></td>
+								</tr>
+							</table> --%>
+							</c:forEach>
+							
+							
+							<%-- <table width="93%" border="0" align="center" cellpadding="0"
 								cellspacing="0">
 								<tr>
 									<td width="177" align="left" valign="top"><span
@@ -748,21 +704,21 @@
 											杭州台州商会副会长<br /> 民建杭州市企业家协会常务理事
 									</span></td>
 									<td width="117" align="right" valign="top"><br /> <img
-										src="../images/photo.jpg" width="84" height="118" /></td>
+										src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
 								</tr>
-							</table></td>
+							</table> --%></td>
 						<td width="12" valign="middle" class="copyright"><p>
-								&nbsp;&nbsp;&nbsp;<img src="../images/ge.jpg" width="12"
+								&nbsp;&nbsp;&nbsp;<img src="${ctx}/images/ge.jpg" width="12"
 									height="281" /><br />
 							</p></td>
 						<td width="259" valign="middle" class="copyright"><img
-							src="../images/ad2.jpg" width="266" height="281" /></td>
+							src="${ctx}/images/ad2.jpg" width="266" height="281" /></td>
 						<td width="18" valign="middle" class="copyright">&nbsp;</td>
 					</tr>
 				</table>
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
-						<td height="8"><img src="../images/space.gif" width="2"
+						<td height="8"><img src="${ctx}/images/space.gif" width="2"
 							height="2" /></td>
 					</tr>
 				</table></td>
@@ -770,5 +726,5 @@
 	</table>
 	
 	
-<%-- <%@ include file="../common/footer.html"%>	 --%>
+<%-- <%@ include file="${ctx}/common/footer.html"%>	 --%>
 <jsp:include page="../common/footer.jsp" flush="true"/>
