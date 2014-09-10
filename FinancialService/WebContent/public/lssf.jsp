@@ -2,6 +2,25 @@
     pageEncoding="UTF-8"%>
 <%@include file="../common/taglibs.jsp"%>
 <jsp:include page="../common/header.jsp" flush="true"/>
+
+
+<%@page import="java.util.*"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="org.nutz.dao.impl.*"%>
+<%@page import="org.nutz.dao.*"%>
+<%@page import="model.*"%>
+<%@page import="database.Connections"%>
+
+
+<%
+DataSource dataSource = Connections.getDataSource();
+Dao dao = new NutDao(dataSource);
+
+/*Display one item of lawyer information  Will Zhou  8/22/2014*/
+List<Lawyer> lawyers = dao.query(Lawyer.class, Cnd.where("status", "=", 1L).desc("id"));
+pageContext.setAttribute("lawyers", lawyers);
+ %>
+
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="271" align="center" bgcolor="#AF190B"><table width="945" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -77,9 +96,12 @@
             </tr>
         </table></td>
         <td width="1" valign="top" bgcolor="#FFFFFF" class="nei">&nbsp;</td>
-        <td width="651" valign="top" bgcolor="#FFFFFF"><table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <td width="651" valign="top" bgcolor="#FFFFFF">
+        
+        <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
           <tr>
-            <td align="center" valign="top"><table width="98" border="0" cellspacing="0" cellpadding="0">
+            <td align="center" valign="top">
+            <table width="98" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td>&nbsp;</td>
               </tr>
@@ -101,125 +123,60 @@
                   <td height="10" valign="middle" class="title"><br /></td>
                   </tr>
                 </table>
+                
+                <%int lawyer_num = lawyers.size();
+                  
+                 %>
+                <%-- <c:forEach var="item" items="${lawyers}"> --%>
+               
+                
+                
+                
               <table width="600" border="0" cellspacing="0" cellpadding="0">
+              	<%
+                	for(int i = 0; i<lawyer_num; i=i+4){
+                	
+                	if(i % 4 ==0){ %>
                 <tr>
-                  <td align="center"><table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
+              <% }%>
+              
+                  
+                  <%for(int j=i;  (j< i+4)&&(j<lawyer_num); j++){ %>
+                  <td align="left">
+                  
+                  <table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
                     <tr>
-                      <td height="150" colspan="2" align="center"><img src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
+                      <td height="150" colspan="2" align="center"><img src="${ctx}/upload/<%=lawyers.get(j).getFigure_path() %>" width="84" height="118" /></td>
                     </tr>
                     <tr>
-                      <td height="30" colspan="2" align="center" class="txt2">徐雳 律师</td>
+                      <td height="30" colspan="2" align="center" class="txt2"><%=lawyers.get(j).getName() %></td>
                     </tr>
-                  </table></td>
-                  <td align="center"><table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
-                    <tr>
-                      <td height="150" colspan="2" align="center"><img src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
-                    </tr>
-                    <tr>
-                      <td height="30" colspan="2" align="center" class="txt2">徐雳 律师</td>
-                    </tr>
-                  </table></td>
-                  <td align="center"><table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
-                    <tr>
-                      <td height="150" colspan="2" align="center"><img src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
-                    </tr>
-                    <tr>
-                      <td height="30" colspan="2" align="center" class="txt2">徐雳 律师</td>
-                    </tr>
-                  </table></td>
-                  <td align="center"><table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
-                    <tr>
-                      <td height="150" colspan="2" align="center"><img src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
-                    </tr>
-                    <tr>
-                      <td height="30" colspan="2" align="center" class="txt2">徐雳 律师</td>
-                    </tr>
-                  </table></td>
+                  </table>
+                  
+                  </td>
+                  <%} %>
+                  
+
+                   <%if(i % 4 ==0){ %>
                 </tr>
+               <%} 
+               }%>
               </table>
               <br />
-              <table width="600" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td align="center"><table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
-                    <tr>
-                      <td height="150" colspan="2" align="center"><img src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
-                    </tr>
-                    <tr>
-                      <td height="30" colspan="2" align="center" class="txt2">徐雳 律师</td>
-                    </tr>
-                  </table></td>
-                  <td align="center"><table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
-                    <tr>
-                      <td height="150" colspan="2" align="center"><img src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
-                    </tr>
-                    <tr>
-                      <td height="30" colspan="2" align="center" class="txt2">徐雳 律师</td>
-                    </tr>
-                  </table></td>
-                  <td align="center"><table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
-                    <tr>
-                      <td height="150" colspan="2" align="center"><img src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
-                    </tr>
-                    <tr>
-                      <td height="30" colspan="2" align="center" class="txt2">徐雳 律师</td>
-                    </tr>
-                  </table></td>
-                  <td align="center"><table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
-                    <tr>
-                      <td height="150" colspan="2" align="center"><img src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
-                    </tr>
-                    <tr>
-                      <td height="30" colspan="2" align="center" class="txt2">徐雳 律师</td>
-                    </tr>
-                  </table></td>
-                </tr>
-              </table>
-              <br />
-              <table width="600" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td align="center"><table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
-                    <tr>
-                      <td height="150" colspan="2" align="center"><img src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
-                    </tr>
-                    <tr>
-                      <td height="30" colspan="2" align="center" class="txt2">徐雳 律师</td>
-                    </tr>
-                  </table></td>
-                  <td align="center"><table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
-                    <tr>
-                      <td height="150" colspan="2" align="center"><img src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
-                    </tr>
-                    <tr>
-                      <td height="30" colspan="2" align="center" class="txt2">徐雳 律师</td>
-                    </tr>
-                  </table></td>
-                  <td align="center"><table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
-                    <tr>
-                      <td height="150" colspan="2" align="center"><img src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
-                    </tr>
-                    <tr>
-                      <td height="30" colspan="2" align="center" class="txt2">徐雳 律师</td>
-                    </tr>
-                  </table></td>
-                  <td align="center"><table width="125" border="0" cellpadding="0" cellspacing="0" class="biankuang">
-                    <tr>
-                      <td height="150" colspan="2" align="center"><img src="${ctx}/images/photo.jpg" width="84" height="118" /></td>
-                    </tr>
-                    <tr>
-                      <td height="30" colspan="2" align="center" class="txt2">徐雳 律师</td>
-                    </tr>
-                  </table></td>
-                </tr>
-              </table>
-              <br />
+            
+              
+            <%--   </c:forEach> --%>
+              
+              
+              
               <p>&nbsp;</p>
-              <table width="240" border="0" cellpadding="0" cellspacing="0" class="txt">
+             <%--  <table width="240" border="0" cellpadding="0" cellspacing="0" class="txt">
                 <tr>
                   <td><img src="${ctx}/images/lift.jpg" width="18" height="13" /></td>
                   <td align="center"><span class="txt2"><a href="rztz.html">1</a></span> |   2   |   3   |   </td>
                   <td><img src="${ctx}/images/right.jpg" width="18" height="13" /></td>
                 </tr>
-              </table>
+              </table> --%>
               <p>&nbsp;</p></td>
           </tr>
         </table></td>

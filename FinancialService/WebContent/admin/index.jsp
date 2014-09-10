@@ -17,7 +17,7 @@
 <h1><p style='color:red;'><%=sysName %></p></h1>
 <br>
     <form class="form-horizontal"  action="../servlet/loginServlet" method="post">
-    	 
+    	 <input name="login_type" value="admin" type="hidden">
 	 <%@ include file="../include/meta.jsp"%> 
 	 <%@ include file="../include/cssJSMain.jsp"%> 
 	 

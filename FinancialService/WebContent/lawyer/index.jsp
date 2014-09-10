@@ -15,7 +15,7 @@
 <script type="text/javascript" charset="utf-8" src="${ctx}/resource/jeasyui/easyui-lang-zh_CN.js"></script>
 </head>
 <body>
-<table id="dg" title="文章管理" class="easyui-datagrid" url="${ctx}/module/lawyer/lawyer_list"
+<table id="dg" title="律师说法管理" class="easyui-datagrid" url="${ctx}/module/lawyer/lawyer_list"
        toolbar="#toolbar" pagination="true"
        rownumbers="true" fitColumns="true" singleSelect="true">
     <thead>

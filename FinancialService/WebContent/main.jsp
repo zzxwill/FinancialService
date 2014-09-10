@@ -61,6 +61,13 @@ if(!authorityFilter.check()) response.sendRedirect(request.getContextPath()+auth
                 <li iconCls="icon-gears"><a class="e-link" href="${ctx}/rzsj/add.jsp" target="main" >添加融资方案设计</a></li>    
             </ul>
         </li>
+         <li iconCls="icon-base">
+            <span>用户管理</span>
+            <ul>
+                <li iconCls="icon-gears"><a class="e-link" href="${ctx}/user/index.jsp" target="main" >所有用户</a></li>
+              <%--   <li iconCls="icon-gears"><a class="e-link" href="${ctx}/user/add.jsp" target="main" >添加用户</a></li>   --%>  
+            </ul>
+        </li>
         
     </ul>
 </div>
