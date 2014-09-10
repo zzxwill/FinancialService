@@ -29,7 +29,7 @@
 <div id="toolbar">
     <a href="add.jsp" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
     <a href="javascript:editLawyer()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">编辑</a>
-    <a href="javascript:destroyArticle()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+    <a href="javascript:destroyLawyer()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
 </div>
 <script type="text/javascript">
 function editLawyer(){
@@ -38,7 +38,7 @@ function editLawyer(){
 	    location.href = "edit.jsp?id="+row.id;
 	}
 }
-function destroyArticle(){
+function destroyLawyer(){
 	var row = $('#dg').datagrid('getSelected');
     if(row != null){
         $.get("${ctx}/module/lawyer/lawyer_delete",{id:row.id},function(data){

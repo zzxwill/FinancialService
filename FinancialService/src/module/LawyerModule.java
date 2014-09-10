@@ -68,11 +68,11 @@ public class LawyerModule {
 		return new ResponseCode(0, "保存成功");
 	}
 
-	/*
-	@At("/article_delete")
+	
+	@At("/lawyer_delete")
 	@Ok("json:{quoteName:true}")
 	public ResponseCode articleDelete(@Param("id") Long id) {
-		dao.delete(Article.class, id);
+		dao.delete(Lawyer.class, id);
 		return new ResponseCode(0, "删除成功");
-	}*/
+	}
 }
