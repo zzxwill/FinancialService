@@ -14,7 +14,7 @@
           <li><a href="#">关注我的信息</a></li>
         -->  
            <li class="hover">我的融资信息</li>
-        <li ><a href="#" onClick="window.open('financing.jsp')">发布融资信息</a></li>
+        <li ><a href="#" onClick="window.open('wyrz.jsp')">发布融资信息</a></li>
         <li><a href="financing_list.jsp">管理融资信息</a></li>        
         <li class="hover">我的投资信息</li>
         <li ><a href="#" onClick="window.open('invest.jsp')">发布投资信息</a></li>
